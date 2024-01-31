@@ -57,6 +57,7 @@ const profilesInfo = profiles.map(({network, url}) => {
 
 
 ---
+<button id='answer-example-share-button'>Compartir</button>
 
 <footer class="no-print">
     Pulsa <kbd>Ctrl</kbd> <kbd>K</kbd> para abrir la paleta de comandos.
@@ -116,6 +117,23 @@ const profilesInfo = profiles.map(({network, url}) => {
             ...data,
         ];
     }
+
+    
+    const shareButton = document.getElementById("answer-example-share-button"); 
+
+    if (shareButton !== null) {
+        shareButton.addEventListener("click", (e) => { 
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Web Share API Draft',
+                    text: 'Take a look at this spec!',
+                    url: 'https://wicg.github.io/web-share/#share-method',
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+            }
+            });}
+
 </script>
 
 
@@ -145,6 +163,10 @@ footer{
         display: block;
     }
 
+    #answer-example-share-button{
+        display: none;
+    }
+
 
 footer{
     background: #fdfdfd;
@@ -154,14 +176,11 @@ footer{
     width: 100%;
     padding-block:8px;
     text-align: center;
-
     view-timeline-name: --revealing;
     view-timeline-axis: block;
-
     animation: linear .3s fadeIn;
     animation-timeline: --revealing;
     animation-range: entry 100% cover 10% ;
-
 }
 
 kbd {
@@ -169,5 +188,17 @@ kbd {
     border-radius: 8px;
     padding: 4px 8px;
 }
+}
+
+#answer-example-share-button{
+    display: flex;
+    margin: 16px auto;
+    background: #000;
+    border: none;
+    border-radius: 16px;
+    color: white;
+    padding: 8px 16px;
+    font-size: 2rem
+
 }
 </style>
